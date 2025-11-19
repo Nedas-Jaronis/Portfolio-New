@@ -1,17 +1,11 @@
-import express from "express";
+// src/pages/api/send.js
 import nodemailer from "nodemailer";
-import cors from "cors";
-import dotenv from "dotenv";
 
-dotenv.config();
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
-const app = express();
-const PORT = process.env.PORT || 5000;
-
-app.use(cors());
-app.use(express.json());
-
-app.post("/send", async (req, res) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
@@ -40,6 +34,4 @@ app.post("/send", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Failed to send email" });
   }
-});
-
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
