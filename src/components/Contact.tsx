@@ -25,6 +25,7 @@ const Contact = () => {
     });
 
 
+
       const data = await res.json();
       if (data.success) {
         toast({ title: "Message Sent!", description: "Thanks for reaching out!" });
