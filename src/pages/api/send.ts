@@ -7,6 +7,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  // Add CORS headers
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -15,6 +29,12 @@ export default async function handler(
 
   if (!name || !email || !message) {
     return res.status(400).json({ error: "All fields are required" });
+  }
+
+  // Check if environment variables exist
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.error("Missing environment variables");
+    return res.status(500).json({ error: "Server configuration error" });
   }
 
   try {
@@ -26,17 +46,29 @@ export default async function handler(
       },
     });
 
+    // Verify transporter configuration
+    await transporter.verify();
+
     await transporter.sendMail({
-      from: email,
+      from: process.env.EMAIL_USER, // Use your email as sender
+      replyTo: email, // User's email for replies
       to: process.env.EMAIL_USER,
-      subject: `Portfolio Contact Form: ${name}`,
+      subject: `Portfolio Contact: ${name}`,
       text: message,
-      html: `<p>${message}</p><p>From: ${name} (${email})</p>`,
+      html: `
+        <h3>New Contact Form Submission</h3>
+        <p><strong>From:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `,
     });
 
     res.status(200).json({ success: true });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to send email" });
+  } catch (err: any) {
+    console.error("Email error:", err);
+    res.status(500).json({ 
+      error: "Failed to send email",
+    });
   }
 }
