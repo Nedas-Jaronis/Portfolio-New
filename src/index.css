@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
 All colors MUST be HSL.
 */
 
@@ -24,9 +24,9 @@ All colors MUST be HSL.
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted-foreground: 215 20% 68%;
 
-    --accent: 199 89% 48%;
+    --accent: 190 95% 60%;
     --accent-foreground: 222 47% 5%;
 
     --destructive: 0 84% 60%;
@@ -38,66 +38,18 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
-    --gradient-primary: linear-gradient(135deg, hsl(199 89% 48%), hsl(190 100% 65%));
-    --gradient-accent: linear-gradient(135deg, hsl(199 89% 48% / 0.1), hsl(190 100% 65% / 0.1));
-    
-    --shadow-glow: 0 0 40px hsl(199 89% 48% / 0.3);
-    --shadow-card: 0 10px 30px -10px hsl(199 89% 48% / 0.2);
-    
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --gradient-primary: linear-gradient(135deg, hsl(199 89% 55%), hsl(190 100% 70%));
+
+    --shadow-glow: 0 0 40px hsl(199 89% 48% / 0.25);
+    --shadow-card: 0 10px 30px -10px hsl(222 47% 2% / 0.6);
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222 47% 5%;
-    --foreground: 210 40% 98%;
-
-    --card: 222 47% 8%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222 47% 8%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 199 89% 48%;
-    --primary-foreground: 222 47% 5%;
-
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 199 89% 48%;
-    --accent-foreground: 222 47% 5%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 199 89% 48%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
@@ -108,7 +60,11 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  section[id] {
+    scroll-margin-top: 5rem;
   }
 
   .gradient-text {
@@ -117,11 +73,24 @@ All colors MUST be HSL.
   }
 
   .glass-card {
-    @apply bg-card/50 backdrop-blur-lg border border-border/50;
+    @apply bg-card/60 backdrop-blur-md border border-border/60;
   }
 
   .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-[var(--shadow-card)];
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-card)];
+  }
+
+  /* Consistent section header: eyebrow + title + divider */
+  .section-eyebrow {
+    @apply text-sm font-semibold uppercase tracking-[0.2em] text-primary mb-3;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-5xl font-bold tracking-tight mb-4;
+  }
+
+  .section-divider {
+    @apply w-16 h-1 rounded-full bg-gradient-to-r from-primary to-accent mx-auto;
   }
 }
 
@@ -146,42 +115,19 @@ All colors MUST be HSL.
     }
   }
 
-  @keyframes scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-
-  @keyframes scroll-reverse {
-    0% {
-      transform: translateX(-50%);
-    }
-    100% {
-      transform: translateX(0);
-    }
-  }
-
   .animate-fade-in-up {
-    animation: fade-in-up 0.6s ease-out;
+    animation: fade-in-up 0.6s ease-out both;
   }
 
   .animate-float {
-    animation: float 3s ease-in-out infinite;
+    animation: float 5s ease-in-out infinite;
   }
 
-  .animate-scroll {
-    animation: scroll 20s linear infinite;
-  }
-
-  .animate-scroll-reverse {
-    animation: scroll-reverse 20s linear infinite;
-  }
-
-  .animate-scroll:hover,
-  .animate-scroll-reverse:hover {
-    animation-play-state: paused;
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-in-up,
+    .animate-float,
+    .animate-bounce {
+      animation: none;
+    }
   }
 }
