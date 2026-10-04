@@ -1,97 +1,70 @@
-import { Code2, Layers, Cloud, Cpu } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import SectionHead from "./SectionHead";
 
 const skillGroups = [
   {
     title: "Languages",
-    icon: Code2,
-    skills: ["Python", "Go", "C++", "TypeScript", "JavaScript", "HTML", "CSS"],
+    skills: ["Python", "TypeScript", "JavaScript", "Go", "C++", "HTML/CSS"],
   },
   {
     title: "Frameworks & Libraries",
-    icon: Layers,
     skills: [
       "React",
       "Node.js",
+      "Bun",
+      "Effect",
       "Flask",
-      "Gorilla Mux",
-      "TanStack Router",
       "Tailwind CSS",
-      "shadcn/ui",
-      "TensorFlow",
-      "NumPy",
-      "Pandas",
-      "BAML",
-    ],
-  },
-  {
-    title: "Cloud & Tools",
-    icon: Cloud,
-    skills: [
-      "Azure (App Services, OpenAI, Entra ID)",
-      "PostgreSQL",
       "Docker",
       "Git",
-      "Vite",
-      "Claude Code",
-      "Jupyter",
+      "TensorFlow",
+      "scikit-learn",
+      "OpenCV",
     ],
   },
   {
-    title: "AI/ML & Embedded",
-    icon: Cpu,
+    title: "Cloud & AI",
     skills: [
-      "Agentic AI Development",
-      "Azure OpenAI (GPT-4)",
-      "Computer Vision",
-      "OpenCV",
-      "ESP32 / ESP32-CAM",
-      "Raspberry Pi 5",
+      "Azure App Services",
+      "Azure Blob Storage",
+      "Azure PostgreSQL",
+      "Azure OpenAI",
+      "Entra ID",
+      "LLM integration",
+      "Agentic AI development",
     ],
+  },
+  {
+    title: "Hardware",
+    skills: ["ESP32", "ESP32-CAM", "Raspberry Pi 5"],
   },
 ];
 
-const TechStack = () => {
-  return (
-    <section id="skills" className="py-20 md:py-24 relative overflow-hidden bg-card/30">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-12 md:mb-16 animate-fade-in-up">
-          <p className="section-eyebrow">What I Work With</p>
-          <h2 className="section-title">Skills</h2>
-          <div className="section-divider" />
-        </div>
-
-        <div className="grid sm:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {skillGroups.map((group, index) => (
-            <Card
-              key={group.title}
-              className="glass-card hover-lift animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <CardContent className="p-6 md:p-8">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="p-2.5 bg-primary/10 rounded-lg">
-                    <group.icon className="text-primary" size={20} />
-                  </div>
-                  <h3 className="text-lg font-semibold">{group.title}</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {group.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1.5 text-sm font-medium rounded-md bg-secondary/60 border border-border/60 text-foreground/90"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+const TechStack = () => (
+  <section id="skills" className="bg-black text-[#f5f5f7] py-24 md:py-32 border-t border-white/10">
+    <div className="container mx-auto px-6">
+      <SectionHead eyebrow="Skills" title="What I work with." />
+      <div className="grid sm:grid-cols-2 gap-x-16 gap-y-14">
+        {skillGroups.map((group) => (
+          <div key={group.title}>
+            <h3 className="text-xl font-semibold tracking-tight mb-5">{group.title}</h3>
+            <div className="flex flex-wrap gap-2">
+              {group.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="px-3.5 py-1.5 text-sm rounded-full border border-white/15 text-neutral-300"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
-    </section>
-  );
-};
+      <p className="mt-14 text-neutral-500 text-sm">
+        Certification: Building Transformer-Based Natural Language Processing Applications, NVIDIA (July 2025)
+      </p>
+    </div>
+  </section>
+);
 
 export default TechStack;

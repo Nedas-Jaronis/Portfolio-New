@@ -1,160 +1,219 @@
-import { Github, Box, BrainCircuit, Sun, Atom, TrendingUp, Glasses, Gamepad2, ExternalLink } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
+import SectionHead from "./SectionHead";
+import { rich } from "@/lib/rich";
 
-const projects = [
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface Featured {
+  title: string;
+  kicker?: string;
+  description: string;
+  tags: string[];
+  links: Link[];
+  video: string;
+  poster: string;
+  /** width / height of the video file, so the player never crops it */
+  ratio: number;
+}
+
+// The two Solari posts on X. Order matches the order they were shared in.
+const FAREBOARD_X = "https://x.com/JaronisNedas/status/2095315544501080370";
+const SIDEQUEST_X = "https://x.com/JaronisNedas/status/2095240499904872747";
+
+const featured: Featured[] = [
   {
-    title: "Roblox UGC Pipeline",
-    icon: Box,
+    title: "NevDraw",
     description:
-      "Local-first pipeline that takes a text prompt or image all the way to a marketplace-ready Roblox UGC asset — 3D generation with Roblox's cube3d and TripoSG, headless-Blender auto-rigging to the R15 skeleton, multi-view texture baking, spec validation, and Open Cloud publishing.",
-    github: "https://github.com/Nedas-Jaronis/roblox-ugc-pipeline",
-    tags: ["Python", "Blender", "cube3d", "Stable Diffusion", "Text-to-3D"],
+      "A multiplayer, Excalidraw-style canvas. Type what you're building and everyone on the board watches it turn into wireframes and system architecture as you type. Shipped **50** PRs (**~15K** lines of TypeScript) in one weekend, classifying text on every keystroke with the **JEV** model to draft wireframes in as little as **4ms**.",
+    tags: ["TypeScript", "Bun", "Effect", "WebSockets"],
+    links: [
+      { label: "Devpost", href: "https://devpost.com/software/nevdraw-mq29p8" },
+      { label: "GitHub", href: "https://github.com/Nedas-Jaronis/NevDraw" },
+    ],
+    video: "/videos/nevdraw.mp4",
+    poster: "/videos/nevdraw.jpg",
+    ratio: 1280 / 752,
   },
   {
-    title: "Memory-Efficient Backpropagation",
-    icon: BrainCircuit,
+    title: "FareBoard",
+    kicker: "Solari submission",
     description:
-      "Deep learning rebuilt from first principles — hand-derived, numerically gradient-checked backward passes, working up to a memory-efficient transformer backward pass that trades stored activations for chunked recomputation to cut training VRAM.",
-    github: "https://github.com/Nedas-Jaronis/MemoryEfficient-Backprop",
-    tags: ["Python", "NumPy", "PyTorch", "Transformers"],
+      "Ask for any flight on any date. Cloud browsers read Google Flights, Kayak, Momondo, Expedia and Priceline at the same time, check every airport around your destination, and tell you which flight to take and which site sells it for least. It can search from nine countries to show the price a local sees.",
+    tags: ["Solari", "Cloud browsers", "TypeScript"],
+    links: [
+      { label: "Post on X", href: FAREBOARD_X },
+      { label: "GitHub", href: "https://github.com/Nedas-Jaronis/solari-cookbook" },
+    ],
+    video: "/videos/fareboard.mp4",
+    poster: "/videos/fareboard.jpg",
+    ratio: 1280 / 614,
   },
   {
-    title: "Glass Tint — Assistive Glasses",
-    icon: Glasses,
+    title: "SideQuest",
+    kicker: "Solari submission",
     description:
-      "Assistive wearable for visually impaired users — an ESP32-CAM streams to an ESP32 hub running the ArcFace model to verify faces against an enrolled database in real time, delivering audio feedback for known vs. unknown individuals.",
-    github: null,
-    tags: ["ESP32", "Python", "OpenCV", "ArcFace", "Computer Vision"],
-  },
-  {
-    title: "SolScope",
-    icon: Sun,
-    description:
-      "AI-powered platform that evaluates land parcels for solar energy potential using geospatial data, machine learning models, and interactive heat-map visualizations. 1st place, Sustainability Track at Gator Hacks 2025.",
-    github: "https://github.com/Nedas-Jaronis/SolSearch",
-    tags: ["React", "Python", "scikit-learn", "SQLite"],
-  },
-  {
-    title: "Physics Visualizer",
-    icon: Atom,
-    description:
-      "Dynamic physics problem visualizer that interprets user questions and generates animated, real-time solutions through a BAML-enhanced LLM pipeline.",
-    github: "https://github.com/Nedas-Jaronis/PhysicsVisualizer",
-    tags: ["React", "TypeScript", "BAML", "Python"],
-  },
-  {
-    title: "Stock Market Prediction",
-    icon: TrendingUp,
-    description:
-      "Predictive analysis system leveraging sentiment analysis and market indicators to forecast stock movement trends using Python, NLP models, and financial data APIs.",
-    github: "https://github.com/Nedas-Jaronis/Stock-Prediction-Analysis",
-    tags: ["Python", "NLP", "Pandas"],
+      "Tell it your town and a vibe. A dozen cloud browsers read Google Maps, Eventbrite, AllEvents, Groupon, TripAdvisor and Time Out in parallel, then lay out a plan for your weekend on a timeline and a map.",
+    tags: ["Solari", "Cloud browsers", "TypeScript"],
+    links: [{ label: "Post on X", href: SIDEQUEST_X }],
+    video: "/videos/sidequest.mp4",
+    poster: "/videos/sidequest.jpg",
+    ratio: 1280 / 614,
   },
 ];
 
-const Projects = () => {
-  return (
-    <section id="projects" className="py-20 md:py-24 relative overflow-hidden bg-card/30">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-12 md:mb-16 animate-fade-in-up">
-          <p className="section-eyebrow">Browse My Recent</p>
-          <h2 className="section-title">Projects</h2>
-          <div className="section-divider" />
-        </div>
+const others = [
+  {
+    title: "Roblox UGC Pipeline",
+    description:
+      "Local-first pipeline from a text prompt or image to a marketplace-ready Roblox UGC asset: 3D generation, headless-Blender auto-rigging to R15, texture baking, validation, and Open Cloud publishing.",
+    github: "https://github.com/Nedas-Jaronis/roblox-ugc-pipeline",
+    tags: ["Python", "Blender", "cube3d", "Text-to-3D"],
+  },
+  {
+    title: "SolScope",
+    description:
+      "AI platform that scores land parcels for solar potential using geospatial data, ML models, and heat-map visualizations. **1st place, Sustainability Track, Gator Hacks 2025.**",
+    github: "https://github.com/Nedas-Jaronis/SolSearch",
+    tags: ["React", "Python", "scikit-learn"],
+  },
+  {
+    title: "Physics Visualizer",
+    description:
+      "Interprets a physics question and generates an animated, real-time solution through a BAML-enhanced LLM pipeline.",
+    github: "https://github.com/Nedas-Jaronis/PhysicsVisualizer",
+    tags: ["React", "TypeScript", "BAML"],
+  },
+  {
+    title: "Glass Tint",
+    description:
+      "Assistive glasses for visually impaired users. An ESP32-CAM streams to a hub running ArcFace to recognise enrolled faces in real time and speak the result.",
+    github: null,
+    tags: ["ESP32", "Python", "OpenCV", "ArcFace"],
+  },
+];
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {projects.map((project, index) => (
-            <Card
-              key={project.title}
-              className="glass-card hover-lift group flex flex-col animate-fade-in-up"
-              style={{ animationDelay: `${index * 0.08}s` }}
-            >
-              <CardHeader className="pb-3">
-                <div className="p-3 bg-primary/10 rounded-lg w-fit mb-3">
-                  <project.icon className="text-primary" size={22} />
-                </div>
-                <CardTitle className="text-lg md:text-xl group-hover:text-primary transition-colors">
-                  {project.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="flex flex-col flex-1 gap-4">
-                <CardDescription className="text-muted-foreground leading-relaxed flex-1">
-                  {project.description}
-                </CardDescription>
-                <div className="flex flex-wrap gap-1.5">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-2.5 py-1 text-xs font-medium rounded-md bg-secondary/60 border border-border/60 text-foreground/80"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                {project.github ? (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="gap-2 border-primary/40 hover:bg-primary/10 w-full"
-                    asChild
-                  >
-                    <a href={project.github} target="_blank" rel="noopener noreferrer">
-                      <Github size={16} />
-                      View on GitHub
-                    </a>
-                  </Button>
-                ) : (
-                  <div className="h-9 flex items-center justify-center text-xs text-muted-foreground border border-border/60 rounded-md">
-                    Hardware project — demo on request
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+const cardClass =
+  "group flex flex-col rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition-colors";
 
-        {/* 3D portfolio call-out */}
-        <div className="max-w-6xl mx-auto mt-10 animate-fade-in-up">
-          <a
-            href="https://threejs-portfolio-sand.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="glass-card hover-lift group flex flex-col sm:flex-row items-center justify-between gap-5 p-6 md:p-8 rounded-2xl border-primary/30"
+const Tags = ({ tags }: { tags: string[] }) => (
+  <div className="flex flex-wrap gap-2">
+    {tags.map((t) => (
+      <span key={t} className="px-3 py-1 text-xs rounded-full border border-white/15 text-neutral-400">
+        {t}
+      </span>
+    ))}
+  </div>
+);
+
+const Projects = () => (
+  <section id="projects" className="bg-black text-[#f5f5f7] py-24 md:py-32 border-t border-white/10">
+    <div className="container mx-auto px-6">
+      <SectionHead eyebrow="Projects" title="Things I've built." />
+
+      <div className="space-y-6">
+        {featured.map((p) => (
+          <article
+            key={p.title}
+            className="grid lg:grid-cols-12 gap-8 lg:gap-10 rounded-3xl border border-white/10 bg-white/[0.03] p-5 md:p-8"
           >
-            <div className="flex items-center gap-4 text-center sm:text-left flex-col sm:flex-row">
-              <div className="p-3 bg-primary/10 rounded-lg shrink-0">
-                <Gamepad2 className="text-primary" size={26} />
+            <video
+              className="lg:col-span-7 w-full rounded-2xl border border-white/10 bg-black object-cover"
+              style={{ aspectRatio: String(p.ratio) }}
+              src={p.video}
+              poster={p.poster}
+              controls
+              playsInline
+              preload="none"
+            />
+            <div className="lg:col-span-5 flex flex-col justify-center">
+              {p.kicker && (
+                <p className="text-xs tracking-[0.25em] uppercase text-neutral-500 mb-3">{p.kicker}</p>
+              )}
+              <h3 className="text-3xl font-semibold tracking-tight">{p.title}</h3>
+              <p className="mt-4 text-neutral-400 leading-relaxed">{rich(p.description)}</p>
+              <div className="mt-6">
+                <Tags tags={p.tags} />
               </div>
-              <div>
-                <h3 className="text-lg md:text-xl font-semibold group-hover:text-primary transition-colors">
-                  Prefer something interactive?
-                </h3>
-                <p className="text-muted-foreground text-sm md:text-base">
-                  Explore the 3D, game-like version of this portfolio — built with Three.js.
-                </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {p.links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-4 py-2 text-sm font-medium hover:bg-white/10 transition-colors"
+                  >
+                    {l.label}
+                    <ArrowUpRight size={16} />
+                  </a>
+                ))}
               </div>
             </div>
-            <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-primary-foreground font-medium text-sm shrink-0 group-hover:bg-primary/90 transition-colors">
-              Launch 3D Portfolio
-              <ExternalLink size={15} />
-            </span>
-          </a>
-        </div>
-
-        <div className="text-center mt-10 animate-fade-in-up">
-          <a
-            href="https://github.com/Nedas-Jaronis?tab=repositories"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-medium text-primary hover:underline underline-offset-4"
-          >
-            See more on GitHub →
-          </a>
-        </div>
+          </article>
+        ))}
       </div>
-    </section>
-  );
-};
+
+      <div className="mt-6 grid md:grid-cols-2 gap-5">
+        {others.map((p) => {
+          const inner = (
+            <>
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="text-2xl font-semibold tracking-tight">{p.title}</h3>
+                {p.github && (
+                  <ArrowUpRight
+                    size={22}
+                    className="shrink-0 text-neutral-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+                  />
+                )}
+              </div>
+              <p className="mt-4 text-neutral-400 leading-relaxed flex-1">{rich(p.description)}</p>
+              <div className="mt-6">
+                <Tags tags={p.tags} />
+              </div>
+              {!p.github && <p className="mt-4 text-xs text-neutral-500">Hardware project. Demo on request.</p>}
+            </>
+          );
+          return p.github ? (
+            <a
+              key={p.title}
+              href={p.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${cardClass} hover:bg-white/[0.07] hover:border-white/25`}
+            >
+              {inner}
+            </a>
+          ) : (
+            <div key={p.title} className={cardClass}>
+              {inner}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-12 flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-t border-white/10 pt-10">
+        <a
+          href="https://threejs-portfolio-sand.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-neutral-400 hover:text-white transition-colors"
+        >
+          Prefer something interactive? Try the 3D version of this site (beta) <span aria-hidden>→</span>
+        </a>
+        <a
+          href="https://github.com/Nedas-Jaronis?tab=repositories"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-neutral-400 hover:text-white transition-colors"
+        >
+          All repositories on GitHub <span aria-hidden>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+);
 
 export default Projects;

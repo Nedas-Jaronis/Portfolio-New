@@ -1,6 +1,7 @@
 import Navigation from "../components/Navigation";
 import Hero from "../components/Hero";
 import About from "../components/About";
+import PhotoPair from "../components/PhotoPair";
 import TechStack from "../components/TechStack";
 import Experience from "../components/Experience";
 import Projects from "../components/Projects";
@@ -9,18 +10,19 @@ import { Github, Linkedin } from "lucide-react";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-black">
       <Navigation />
       <Hero />
       <About />
+      <PhotoPair />
       <TechStack />
       <Experience />
       <Projects />
       <Contact />
 
-      <footer className="py-8 border-t border-border/50">
+      <footer className="py-8 border-t border-white/10 bg-black">
         <div className="container mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-neutral-500">
             © {new Date().getFullYear()} Nedas Jaronis. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
@@ -29,7 +31,7 @@ const Index = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-neutral-500 hover:text-white transition-colors"
             >
               <Github size={18} />
             </a>
@@ -38,7 +40,7 @@ const Index = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-neutral-500 hover:text-white transition-colors"
             >
               <Linkedin size={18} />
             </a>
