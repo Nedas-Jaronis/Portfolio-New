@@ -30,11 +30,9 @@ const experience: Entry[] = [
     place: "Tampa, FL (Hybrid)",
     period: "Oct 2025 – Present",
     bullets: [
-      "Sole engineer building a full-stack platform from scratch (Node.js, React, Azure): **155** API endpoints, **469** commits, **48** releases.",
-      "Architected Azure cloud infrastructure end to end, sustaining a **99.94%** success rate across **12,300+** production requests.",
-      "Built an AI startup enrichment pipeline (Azure OpenAI GPT-4o, GitHub, SEC EDGAR APIs) that auto-generates investment scorecards.",
-      "Built an automated startup-identification system with Python web scraping, plus investor tools and AI-powered dashboards for client engagement.",
-      "Direct the technology roadmap, including stakeholder communication, budget planning, and advising the CEO.",
+      "Own the architecture and engineering deliverables of a venture-intelligence platform, from data ingestion and LLM enrichment through scoring to the investor-facing app, and set the technical roadmap with the CEO.",
+      "Built the sourcing pipeline behind **16,701** startups, investors, accelerators, and incubators, pulling from Hacker News, Product Hunt, Lobsters, SEC EDGAR, and Y Combinator through scrapers, APIs, and LLM enrichment.",
+      "Designed the evaluation model, built for investors to triage startups: a composite score (team, market, product, traction, timing) and a unicorn-potential score (TAM, network, founder-market fit), with competitive-landscape views.",
     ],
   },
   {
@@ -80,9 +78,9 @@ const leadership: Entry[] = [
     place: "Tampa, FL",
     period: "Jun 2026 – Sep 2026",
     bullets: [
-      "Spearheaded Tampa Bay Innovation's first hackathon, a **24-hour** event at USF: **194** registrants, **105** participants, **23** submissions.",
-      "Secured **5** corporate sponsors (including Render and ElevenLabs) and **3** university chapters, funding **$1,500+** in prizes across **5** tracks.",
-      "Recruited a **9-person** judging panel, mentors, and volunteers; built the Devpost site with tracks, rules, and per-track judging rubrics.",
+      "Led Tampa Bay Innovation's first hackathon at USF (Sep 18–20, 2026): **24 hours**, **194** registrants, **105** participants, **23** submissions.",
+      "Brought in **5** corporate sponsors (including Render and ElevenLabs), **3** campus partners, and **$1,500+** in prizes across **8** tracks.",
+      "Recruited a **9-person** judging panel and built the Devpost site and judging rubrics.",
     ],
   },
   {

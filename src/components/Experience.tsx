@@ -8,7 +8,7 @@ const experiences = [
     location: "Tampa, FL (Hybrid)",
     period: "Oct 2025 – Present",
     description:
-      "Sole engineer building a full-stack platform from scratch on Node.js, React, and Azure: **155** API endpoints, **469** commits, and **48** releases. Architected the Azure infrastructure end to end at a **99.94%** success rate across **12,300+** production requests, and built an AI startup enrichment pipeline (Azure OpenAI GPT-4o, GitHub, SEC EDGAR APIs) that auto-generates investment scorecards.",
+      "Own the architecture and engineering deliverables of a venture-intelligence platform, from data ingestion and LLM enrichment through scoring to the investor-facing app, and set the technical roadmap with the CEO. Built the sourcing pipeline behind **16,701** startups, investors, accelerators, and incubators, pulling from Hacker News, Product Hunt, Lobsters, SEC EDGAR, and Y Combinator through scrapers, APIs, and LLM enrichment. Designed the evaluation model, built for investors to triage startups: a composite score (team, market, product, traction, timing) and a unicorn-potential score (TAM, network, founder-market fit), with competitive-landscape views.",
   },
   {
     role: "Technical Infrastructure Coordinator",
@@ -24,7 +24,7 @@ const experiences = [
     location: "Tampa, FL",
     period: "Jun 2026 – Sep 2026",
     description:
-      "Led Tampa Bay Innovation's first hackathon, a **24-hour** event at USF with **194** registrants, **105** participants, and **23** submissions. Secured **5** corporate sponsors (including Render and ElevenLabs) and **3** university chapters, funding **$1,500+** in prizes across **5** tracks, and recruited a **9-person** judging panel. Built the Devpost site with tracks, rules, and per-track judging rubrics.",
+      "Led Tampa Bay Innovation's first hackathon at USF (Sep 18–20, 2026): **24 hours**, **194** registrants, **105** participants, **23** submissions. Brought in **5** corporate sponsors (including Render and ElevenLabs), **3** campus partners, and **$1,500+** in prizes across **8** tracks. Recruited a **9-person** judging panel and built the Devpost site and judging rubrics.",
   },
   {
     role: "Director of Technological Advancements",
