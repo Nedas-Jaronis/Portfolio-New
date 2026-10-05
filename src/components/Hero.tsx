@@ -1,6 +1,7 @@
 import { ArrowDown, Github, Linkedin } from "lucide-react";
 import { Link } from "react-scroll";
 import AsciiScene from "./AsciiScene";
+import XIcon from "./XIcon";
 
 const Hero = () => {
   return (
@@ -62,6 +63,15 @@ const Hero = () => {
             className="p-3 text-neutral-400 hover:text-white transition-colors"
           >
             <Linkedin size={20} />
+          </a>
+          <a
+            href="https://x.com/JaronisNedas"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X"
+            className="p-3 text-neutral-400 hover:text-white transition-colors"
+          >
+            <XIcon size={20} />
           </a>
         </div>
       </div>
